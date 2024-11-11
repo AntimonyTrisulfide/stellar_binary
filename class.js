@@ -1,5 +1,49 @@
 // Description: This file contains the classes for the simulation
 
+// Function to calculate Planck's law brightness
+function planckBrightness(T, lambda) {
+  // Convert lambda from nm to cm
+ lambda *= 1e-7;      
+ return (2 * PLANK_CONSTANT * Math.pow(LIGHT_SPEED, 2)) / 
+        (Math.pow(lambda, 5) * (Math.exp(PLANK_CONSTANT * LIGHT_SPEED / (lambda * BOLTZMANN_CONSTANT * T)) - 1));
+}
+
+// Integrate Planck's brightness within a wavelength range
+function integrateBrightness(T, minLambda, maxLambda) {
+ const steps = 50;
+ let totalBrightness = 0;
+ const stepSize = (maxLambda - minLambda) / steps;
+ for (let i = 0; i < steps; i++) {
+     let lambda = minLambda + i * stepSize;
+     totalBrightness += planckBrightness(T, lambda);
+ }
+ return totalBrightness / steps;
+}
+
+// Convert temperature to RGB based on integrated brightness in color ranges
+function temperatureToRGB(T) {
+
+ // Integrate brightness for each color range
+ let redBrightness = integrateBrightness(T, RED_RANGE[0], RED_RANGE[1]);
+ let greenBrightness = integrateBrightness(T, GREEN_RANGE[0], GREEN_RANGE[1]);
+ let blueBrightness = integrateBrightness(T, BLUE_RANGE[0], BLUE_RANGE[1]);
+
+ // Normalize colors
+ let maxBrightness = Math.max(redBrightness, greenBrightness, blueBrightness);
+ let r = redBrightness / maxBrightness;
+ let g = greenBrightness / maxBrightness;
+ let b = blueBrightness / maxBrightness;
+
+ // Scale to RGB 0-255
+ if (isNaN(r) && isNaN(g) && isNaN(b)){
+   r = 0;
+   g = 0;
+   b = 0;
+ }
+
+ return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
+}
+
 // Function to draw a glowing circle
 function drawGlowingCircle(x, y, diameter, glowColor) {
   let layers = 7;  // Increase layers for smoother glow
@@ -233,20 +277,6 @@ class Simulation {
     text("Time (days)", 475, 620);
     text("Radial Velocity (km/s)", 50, 475);
 
-
-    //intensity graph
-    //draw the axes
-    strokeWeight(2);
-    line(700, 594.252578873 , 1175, 594.252578873);
-    line(698.5, 500, 698.5, 700);
-    
-    //draw the labels
-    textSize(14);
-    fill(255);
-    strokeWeight(0.25);
-    text("Time (days)", 1175, 620);
-    text("Intensity (Lumen)", 700, 475);
-
     text("Projected orbit with orange (primary star)\n", 20, 320);
     text("cyan (secondary star)\n", 20, 340);
     text("white (barycenter)\n", 20, 360);
@@ -283,12 +313,12 @@ class Simulation {
 
     noStroke();
     fill(255, 165, 0);
-    drawGlowingCircle(x1, y1, 20, color(255, 165, 0));
+    drawGlowingCircle(x1, y1, 20, color(temperatureToRGB(T1)));
     //circle(x1, y1, 20);
 
     noStroke();
     fill(0, 255, 255);
-    drawGlowingCircle(x2, y2, 20 * sizeration, color(0, 255, 255));
+    drawGlowingCircle(x2, y2, 20 * sizeration, color(temperatureToRGB(T2)));
     //circle(x2, y2, 20);
     
     noStroke();

@@ -1,5 +1,15 @@
 const G = 6.673e-11; // Gravitational constant
 
+// Define constants for Planck's law
+const PLANK_CONSTANT = 6.626e-27;
+const BOLTZMANN_CONSTANT = 1.38e-16;
+const LIGHT_SPEED = 3e10;
+
+// Set wavelength ranges for color bands in nm
+const RED_RANGE = [600, 800];
+const GREEN_RANGE = [480, 600];
+const BLUE_RANGE = [350, 480];
+
 
 function windowResized() {
   //get current width and height of the browser window and resize the canvas accordingly
