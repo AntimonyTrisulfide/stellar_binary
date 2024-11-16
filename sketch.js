@@ -13,8 +13,8 @@ const BLUE_RANGE = [350, 480];
 
 function windowResized() {
   //get current width and height of the browser window and resize the canvas accordingly
-  if(window.innerWidth < windowHeight){
-    resizeCanvas(windowWidth, windowHeight);  // Adjust the canvas size when window is resized
+  if(window.innerWidth < 1080){
+    resizeCanvas(1920, 1080);  // Adjust the canvas size when window is resized
     background(0);
     t = 0;
     trailX1 = [];
@@ -64,7 +64,7 @@ var P1 = 1, P2 = 1; // Intensity of the stars per unit area
 
 function setup() {
   // Create a canvas that is the size of the window using MainWindow Object
-  mainwindow = new Instantiate(windowWidth, windowHeight, 0);
+  mainwindow = new Instantiate(1920, 1080, 0);
 
   inputFields.push(new InputField("Eccentricity", "0.000397", 20, 20, "eccentricity"));
   inputFields.push(new InputField("Inclination (degrees)", "90", 20, 60, "inclination"));
