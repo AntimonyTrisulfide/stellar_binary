@@ -73,10 +73,10 @@ function setup() {
   inputFields.push(new InputField("Mass of Secondary (solar masses)", "0.2", 20, 180, "massSecondary"));
   inputFields.push(new InputField("Argument of Periastron (degrees)", "316.9997864", 20, 220, "omega"));
   inputFields.push(new InputField("Radial Velocity (km/s)", "29.4232", 20, 260, "gamma"));
-  inputFields.push(new InputField("Radius of Primary Star (solar radius)", "4", 400, 20, "radiusPrimary"));
-  inputFields.push(new InputField("Radius of Secondary Star (solar radius)", "1", 400, 60, "radiusSecondary"));
-  inputFields.push(new InputField("Temperature of Primary Star (kelvin)", "5000", 400, 100, "tempPrimary"));
-  inputFields.push(new InputField("Temperature of Secondary Star (kelvin)", "5000", 400, 140, "tempSecondary"));
+  inputFields.push(new InputField("Radius of Primary Star (solar radius)", "4", 20, 300, "radiusPrimary"));
+  inputFields.push(new InputField("Radius of Secondary Star (solar radius)", "1", 20, 340, "radiusSecondary"));
+  inputFields.push(new InputField("Temperature of Primary Star (kelvin)", "5000", 20, 380, "tempPrimary"));
+  inputFields.push(new InputField("Temperature of Secondary Star (kelvin)", "5000", 20, 420, "tempSecondary"));
 
 
   simulation = new Simulation();

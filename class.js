@@ -267,23 +267,23 @@ class Simulation {
 
     //radial velocity graph
     //draw the axes
-    line(50, 594.252578873 , 475, 594.252578873);
-    line(48.5, 500, 48.5, 700);
+    line(500, 544.252578873 , 1400, 544.252578873);
+    line(498.5, 450, 498.5, 800);
     
     //draw the labels
     textSize(14);
     fill(255);
     strokeWeight(0.25);
-    text("Time (days)", 475, 620);
-    text("Radial Velocity (km/s)", 50, 475);
+    text("Time (days)", 1300, 620);
+    text("Radial Velocity (km/s)", 500, 425);
 
-    text("Projected orbit with orange (primary star)\n", 20, 320);
-    text("cyan (secondary star)\n", 20, 340);
-    text("white (barycenter)\n", 20, 360);
-    text("Semi-major axes: Orange: "+(a1*0.66e-8).toFixed(5)+" AU and Cyan: "+(a2*0.66e-8).toFixed(5)+" AU", 20, 380);
+    text("Projected orbit with orange (primary star)\n", 400, 40);
+    text("cyan (secondary star)\n", 400, 60);
+    text("white (barycenter)\n", 400, 80);
+    text("Semi-major axes: Orange: "+(a1*0.66e-8).toFixed(5)+" AU and Cyan: "+(a2*0.66e-8).toFixed(5)+" AU", 400, 100);
     // Time and Time increment
     //text("Time: " + t, 20, 380);
-    text("Time Scale - 1 sec = " + ((parameters.period)/7).toFixed(5) + " days", 20, 400);
+    text("Time Scale - 1 sec = " + ((parameters.period)/7).toFixed(5) + " days", 400, 120);
 
 
     if (t >= P) {
@@ -310,15 +310,27 @@ class Simulation {
 
     //add glow to the stars
     
+    if (arad1 > 0) {
+      noStroke();
+      fill(255, 165, 0);
+      drawGlowingCircle(x1, y1, 20, color(temperatureToRGB(T1)));
 
-    noStroke();
-    fill(255, 165, 0);
-    drawGlowingCircle(x1, y1, 20, color(temperatureToRGB(T1)));
+      noStroke();
+      fill(0, 255, 255);
+      drawGlowingCircle(x2, y2, 20 * sizeration, color(temperatureToRGB(T2)));
+    }
+    else{
+      noStroke();
+      fill(0, 255, 255);
+      drawGlowingCircle(x2, y2, 20 * sizeration, color(temperatureToRGB(T2)));
+      
+      noStroke();
+      fill(255, 165, 0);
+      drawGlowingCircle(x1, y1, 20, color(temperatureToRGB(T1)));
+    }
     //circle(x1, y1, 20);
 
-    noStroke();
-    fill(0, 255, 255);
-    drawGlowingCircle(x2, y2, 20 * sizeration, color(temperatureToRGB(T2)));
+    
     //circle(x2, y2, 20);
     
     noStroke();
@@ -329,9 +341,9 @@ class Simulation {
       for (let i = 0; i < graphV1.length; i++) {
         noStroke()
         fill(255, 165 , 0,100);
-        circle(graphT[i]/dt + 50,  -graphV1[i] + 650, 3);
+        circle(graphT[i]/dt + 500,  -graphV1[i] + 600, 3);
         fill(0, 255 , 255, 100);
-        circle(graphT[i]/dt + 50,  -graphV2[i] + 650, 3);
+        circle(graphT[i]/dt + 500,  -graphV2[i] + 600, 3);
       }
 
       //initial value of intensity
@@ -342,7 +354,7 @@ class Simulation {
         noStroke()
         fill(255, 255 , 255, 255);
         console.log(-graphI[i]/scale + 1500);
-        circle(graphT[i]/dt + 50, (-graphI[i]/scale) + 1275, 3);
+        circle(graphT[i]/dt + 500, (-graphI[i]/scale) + 1225, 3);
       }
     }
 
