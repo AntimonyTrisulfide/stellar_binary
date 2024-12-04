@@ -83,6 +83,7 @@ class Instantiate {
   constructor(x, y, color) {
       createCanvas(x, y);
       background(color);
+      pixelDensity(1);
   }
 }
 
